@@ -1,0 +1,3 @@
+[submodule "src/DuduLearnsToCode-Core"]
+	path = src/DuduLearnsToCode-Core
+	url = git@github.com:Bobholamovic/DuduLearnsToCode-Core.git
