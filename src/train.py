@@ -30,6 +30,7 @@ def main():
     # Parse commandline arguments
     def parser_configurator(parser):
         return parser
+        
     args = parse_args(parser_configurator)
 
     trainer = R['Trainer_switcher'](args)
