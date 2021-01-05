@@ -44,11 +44,11 @@ def main():
             trainer.run()
         except BaseException as e:
             import traceback
-            # Catch ALL kinds of exceptions
             trainer.logger.fatal(traceback.format_exc())
             if args['debug_on']:
-                breakpoint()
-            exit(1)
+                import sys
+                import pdb
+                pdb.post_mortem(sys.exc_info()[2])
     else:
         raise NotImplementedError("Cannot find an appropriate trainer.")
 
