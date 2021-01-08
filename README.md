@@ -2,7 +2,7 @@
 
 **Note: DuduLearnsToCode is not the official name of this project, but a placeholder until I come up with a good name.**
 
-A simple template for deep learning projects with PyTorch.
+A simple template for deep learning projects with PyTorch (especially for CV projects).
 
 ## Visions
 
