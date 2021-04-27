@@ -325,7 +325,9 @@ class _ValueTransform(Transform):
             dtype = x.dtype
             # NOTE: The calculations are done with floating type to prevent overflow.
             # This is a simple yet stupid way.
-            x = x.astype(np.float32, copy=False)
+            if not np.can_cast(dtype, np.float64):
+                raise ValueError("dtype={} is not supported.".format(dtype))
+            x = x.astype(np.float64, copy=False)
             x = tf(obj, np.clip(x, *obj.limit, out=x), params)
             # Convert back to the original type
             # TODO: Round instead of truncate if dtype is integer
