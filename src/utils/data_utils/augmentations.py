@@ -112,7 +112,7 @@ class Scale(Transform):
         if size == (h,w):
             return x
         order = 1 if np.issubdtype(x.dtype, np.floating) else 0
-        return skimage.transform.resize(x, size, order=order, preserve_range=True).astype(x.dtype)
+        return skimage.transform.resize(x, size, order=order, preserve_range=True, anti_aliasing=False).astype(x.dtype)
 
     def _get_rand_params(self):
         return {'scale': uniform(*self.scale)}
