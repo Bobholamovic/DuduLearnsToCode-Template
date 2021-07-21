@@ -16,7 +16,7 @@ class Meter:
         if len(args) == 1:
             return args[0]
         else:
-            raise NotImplementedError
+            raise ValueError
 
     def reset(self):
         self.val = 0

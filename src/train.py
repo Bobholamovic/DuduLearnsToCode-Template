@@ -50,7 +50,7 @@ def main():
                 import pdb
                 pdb.post_mortem(sys.exc_info()[2])
     else:
-        raise NotImplementedError("Cannot find an appropriate trainer.")
+        raise RuntimeError("Cannot find an appropriate trainer.")
 
 
 if __name__ == '__main__':
