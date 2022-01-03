@@ -1,6 +1,6 @@
 import random
 import math
-from functools import partial, wraps
+from functools import wraps
 from copy import deepcopy
 
 import numpy as np
@@ -9,11 +9,12 @@ import skimage.transform
 
 __all__ = [
     'Compose', 'Choose', 
+    'Identity',
     'Scale', 'DiscreteScale', 
     'FlipRotate', 'Flip', 'HorizontalFlip', 'VerticalFlip', 'Rotate', 
     'Crop',
     'Shift', 'XShift', 'YShift',
-    'ContrastBrightScale', 'ContrastScale', 'BrightnessScale',
+    'ContrastBrightScale', 'ContrastScale', 'BrightnessShift',
     'AddGaussNoise'
 ]
 
@@ -42,7 +43,7 @@ class Transform:
         if copy:
             args = deepcopy(args)
         if rand() > self.prob_apply:
-            return args
+            return args[0] if len(args) == 1 else args
         if self._rand_state:
             params = self._get_rand_params()
         else:
@@ -90,6 +91,11 @@ class Choose:
 
     def __repr__(self):
         return "Choose [ "+", ".join(tf.__repr__() for tf in self.tfs)+"]\n"
+
+
+class Identity:
+    def __call__(self, *x):
+        return x if len(x)>0 else x[0]
 
 
 class Scale(Transform):
@@ -372,9 +378,9 @@ class ContrastScale(ContrastBrightScale):
         super(ContrastScale, self).__init__(alpha=alpha, beta=0.0, prob_apply=prob_apply, limit=limit)
         
 
-class BrightnessScale(ContrastBrightScale):
+class BrightnessShift(ContrastBrightScale):
     def __init__(self, beta=(-0.2, 0.2), prob_apply=1.0, limit=(0, 255)):
-        super(BrightnessScale, self).__init__(alpha=1.0, beta=beta, prob_apply=prob_apply, limit=limit)
+        super(BrightnessShift, self).__init__(alpha=1.0, beta=beta, prob_apply=prob_apply, limit=limit)
         
 
 class AddGaussNoise(_ValueTransform):
